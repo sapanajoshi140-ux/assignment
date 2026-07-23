@@ -1,0 +1,23 @@
+- hosts: first-Vm
+  become: true
+
+  tasks:
+    - name: Install nginx and unzip
+      ansible.builtin.apt:
+        name:
+          - nginx
+          - unzip
+        state: present
+        update_cache: true
+    
+    - name: Download zip
+      ansible.builtin.get_url:
+        url: https://github.com/user-attachments/files/30199374/site.zip
+        dest: /tmp/site.zip
+        mode: "0644"
+
+    - name: Extract site.zip into web root
+      ansible.builtin.unarchive:
+        src: /tmp/site.zip
+        dest: /var/www/html
+        remote_src: true

@@ -1,0 +1,28 @@
+# AWS Keys
+*.pem
+*.key
+id_rsa*
+
+# Ansible
+*.retry
+.ansible/
+.ansible_async/
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# Linux temp files
+*~
+*.swp
+
+

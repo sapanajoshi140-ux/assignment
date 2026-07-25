@@ -100,7 +100,10 @@ Two Ubuntu 24.04 EC2 instances were launched.
 | Instance Type | t3.micro |
 | Operating System | Ubuntu 24.04 |
 | Public IP | Enabled |
+| Security Group | SSH (22), HTTP (80) |
 
+
+---
 
 ## Application Load Balancer
 
@@ -240,7 +243,7 @@ ansible_ssh_private_key_file=golive.pem
 
 ---
 
-```
+
 
 ---
 

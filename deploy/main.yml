@@ -1,0 +1,49 @@
+---
+- name: deploy to ec2
+  hosts: web
+  become: true
+
+  roles:
+      - role: geerlingguy.docker
+        vars:
+            docker_users:
+                - ubuntu
+
+  tasks:
+      - name: Download site to ec2
+        ansible.builtin.get_url:
+            url: https://github.com/user-attachments/files/30199374/site.zip
+            dest: /tmp/site.zip
+            mode: '0644'
+
+      - name: Install unzip
+        ansible.builtin.apt:
+          name: unzip
+          state: present
+          update_cache: yes 
+          
+      - name: Create site directory
+        ansible.builtin.file:
+          path: /opt/test_site
+          state: directory
+          mode: '0755'
+      
+      - name: Extract site
+        ansible.builtin.unarchive:
+            src: /tmp/site.zip
+            dest: /opt/test_site
+            remote_src: true
+            mode: '0755'
+
+      - name: Deploy to nginx container
+        community.docker.docker_container:
+          name: fundevops_site
+          image: nginx:latest
+          state: started
+          restart_policy: unless-stopped
+          published_ports:
+            - "80:80"
+          volumes:
+            - "/opt/test_site:/usr/share/nginx/html:ro"
+                      
+

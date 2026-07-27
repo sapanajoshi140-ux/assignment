@@ -20,9 +20,30 @@ __pycache__/
 
 # IntelliJ
 .idea/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+crash.log
 
-# Linux temp files
-*~
-*.swp
+# SSH Keys
+*.pem
+*.key
 
+# Website files
+site.zip
 
+# Logs
+*.log
+
+# Ansible
+*.retry
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store

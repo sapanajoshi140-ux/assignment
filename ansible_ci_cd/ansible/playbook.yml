@@ -22,7 +22,7 @@
       ansible.builtin.template:
         src: index.html.j2
         dest: /opt/site/index.html
-      notify: Restart nginx
+        mode: '0644'
 
     - name: Run nginx in a container
       community.docker.docker_container:

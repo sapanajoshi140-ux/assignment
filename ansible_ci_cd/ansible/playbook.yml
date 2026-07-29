@@ -1,0 +1,36 @@
+- name: Install nginx
+  hosts: web
+  become: true
+
+  roles:
+    - geerlingguy.docker
+
+  tasks:
+
+    - name: Ensure target directory exits
+      ansible.builtin.file:
+        path: /opt/site
+        state: directory
+        mode: '0755'
+
+    - name: Read host uptime
+      ansible.builtin.command: uptime -p      # → "up 13 hours, 50 minutes"
+      register: host_uptime
+      changed_when: false
+
+    - name: Render the homepage
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /opt/site/index.html
+        mode: '0644'
+
+    - name: Run nginx in a container
+      community.docker.docker_container:
+        name: hello-nginx
+        image: nginx:latest
+        state: started
+        ports:
+          - "8080:80"
+        volumes:
+          - "/opt/site:/usr/share/nginx/html:ro"
+      when: not ansible_check_mode

@@ -44,6 +44,8 @@ site.zip
 # IDE files
 .vscode/
 .idea/
+site.zip
+deploy/site.zip
 
 # OS files
 .DS_Store

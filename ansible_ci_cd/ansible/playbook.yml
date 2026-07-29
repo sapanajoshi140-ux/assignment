@@ -33,4 +33,4 @@
           - "8080:80"
         volumes:
           - "/opt/site:/usr/share/nginx/html:ro"
-        when: not ansible_check_mode
+      when: not ansible_check_mode

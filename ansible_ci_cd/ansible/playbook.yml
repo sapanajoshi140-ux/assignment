@@ -1,6 +1,9 @@
 - hosts: web
   become: true
 
+  roles:
+    - geerlingguy.docker
+
   tasks:
 
     - name: ensure target directory exits
@@ -8,17 +11,24 @@
         path: /opt/site
         state: directory
         mode: '0755'
+
     - name: Read host uptime
       ansible.builtin.command: uptime -p      # → "up 13 hours, 50 minutes"
-        register: host_uptime
-        changed_when: false
+      register: host_uptime
+      changed_when: false
 
-     - name: Run nginx in a container
-       community.docker.docker_container:
-         name: hello-nginx
-         image: nginx:latest
-         state: started
-         ports:
-           - "8080:80"
-         volumes:
-           - "/opt/site:/usr/share/nginx/html:ro"
+    - name: Render the homepage
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /opt/site/index.html
+      notify: Restart nginx
+
+    - name: Run nginx in a container
+      community.docker.docker_container:
+        name: hello-nginx
+        image: nginx:latest
+        state: started
+        ports:
+          - "8080:80"
+        volumes:
+          - "/opt/site:/usr/share/nginx/html:ro"

@@ -2,10 +2,10 @@ name: Ansible
 
 on:
   pull_request:
-    paths: ["ansible/**"]
+    paths: ["ansible_ci_cd/**"]
   push:
     branches: [main]
-    paths: ["ansible/**"]
+    paths: ["ansible_ci_cd**"]
 
 jobs:
   ansible:

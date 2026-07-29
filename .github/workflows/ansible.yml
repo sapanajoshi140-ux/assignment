@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ansible
+        working-directory: ansible_ci_cd
     steps:
       - uses: actions/checkout@v7
 

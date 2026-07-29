@@ -5,7 +5,7 @@ on:
     paths: ["ansible_ci_cd/**"]
   push:
     branches: [main]
-    paths: ["ansible_ci_cd**"]
+    paths: ["ansible_ci_cd/**"]
 
 jobs:
   ansible:

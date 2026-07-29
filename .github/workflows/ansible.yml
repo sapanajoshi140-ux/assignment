@@ -22,6 +22,9 @@ jobs:
 
       - name: Install Ansible + lint
         run: pip install ansible ansible-lint
+      
+      - name: Install requirement
+        run: ansible-galaxy install -r requirements.yml
 
       - name: Lint
         run: ansible-lint playbook.yml
